@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package imagerendering;
+package main;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -118,10 +118,6 @@ public class EnginePanel extends JPanel implements Runnable, KeyListener {
             dx = dx + 10;
         }
 
-        
-        
-        
-        
     }
 
     @Override
