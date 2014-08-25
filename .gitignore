@@ -46,9 +46,10 @@ Desktop.ini
 $RECYCLE.BIN/
 
 
-nbprojects/private/
+nbproject/private/
 build/
 dist/
+
 
 # Windows Installer files
 *.cab
