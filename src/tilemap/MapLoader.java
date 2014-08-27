@@ -1,15 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package tilemap;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.function.Consumer;
-import java.util.function.Function;
 
 /**
  *
@@ -25,12 +19,11 @@ public class MapLoader {
 
     }
 
-    public static void main(String[] args) {
-        MapLoader m = new MapLoader();
-        m.loadMap();
+    public int[][] getMap() {
+        return map;
     }
 
-    public void loadMap() {
+    public boolean loadMap() {
         try {
             InputStream inputstream = this.getClass().getResourceAsStream("/map/level1.txt");
             BufferedReader br = new BufferedReader(new InputStreamReader(inputstream));
@@ -47,33 +40,26 @@ public class MapLoader {
                     map[col][row] = Integer.parseInt(tokens[row]);
                 }
             }
-
-        } catch (Exception e) {
+        } catch (IOException | NumberFormatException e) {
             e.printStackTrace();
         }
+        return map != null;
     }
 
-    
-    public void flipMap(){
-        if(this.map != null){
-        
-            
-            
-            
-            
-            
-           Function<String, String> trible = (s)-> {
-               
-               System.out.println("");
-               return s;
-           };
-           
-            
-        
+    public void flipMap() {
+        if (this.map != null) {
+            int topPointer = 0;
+            int bottomPointer = map.length - 1;
+            while (topPointer < bottomPointer && topPointer != bottomPointer) {
+                int[] tmpTopRow = map[topPointer];
+                int[] tmpbottomRow = map[bottomPointer];
+                map[topPointer] = tmpbottomRow;
+                map[bottomPointer] = tmpTopRow;
+                topPointer++;
+                bottomPointer--;
+
+            }
         }
     }
-    
-    
-    
-    
+
 }

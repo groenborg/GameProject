@@ -20,7 +20,7 @@ public class ImageRendering {
      */
     public static void main(String[] args) {
         JFrame f = new JFrame("New Game");
-        f.setContentPane(new EnginePanel());
+        f.setContentPane(new EnginePanel(f));
         f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         f.setResizable(false);
         f.pack();

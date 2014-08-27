@@ -12,6 +12,7 @@ import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 /**
@@ -33,7 +34,7 @@ public class EnginePanel extends JPanel implements Runnable, KeyListener {
     int dx = 0;
     int dy = 0;
 
-    public EnginePanel() {
+    public EnginePanel(JFrame frame) {
         this.setPreferredSize(new Dimension(G_WIDTH * G_SCALE, G_HEIGHT * G_SCALE));
         this.setFocusable(true);
         this.requestFocus();
@@ -84,7 +85,7 @@ public class EnginePanel extends JPanel implements Runnable, KeyListener {
         dbg.fillRect(0, 0, 480 * 2, 320 * 2);
         dbg.setColor(Color.red);
         dbg.fillRect(dx, dy, 100, 100);
-
+      
     }
 
     public void draw() {
