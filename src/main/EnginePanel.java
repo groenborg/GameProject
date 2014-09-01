@@ -26,10 +26,15 @@ public class EnginePanel extends JPanel implements Runnable, KeyListener {
     public static int G_HEIGHT = 320;
     public static int G_SCALE = 2;
 
-    // Run values
+    // Engine values
     private Thread t;
     private BufferedImage dbImage;
     private Graphics2D dbg;
+
+    // game values
+    private static int MAX_FRAME_SKIP = 5;
+    private int UPS = 1000 / 60;
+    private boolean running = true;
 
     int dx = 0;
     int dy = 0;
@@ -61,18 +66,33 @@ public class EnginePanel extends JPanel implements Runnable, KeyListener {
 
         init();
 
-        while (true) {
+        long beforeTime, afterTime, timeDiff, sleepTime;
+        long overSleepTime = 0L;
+        int noDelays = 0;
+        long excess = 0L;
+
+        while (running) {
+
+            beforeTime = System.currentTimeMillis();
 
             update();
-            render();
+            render(dbg);
             draw();
 
-            try {
-                Thread.sleep(16);
-            } catch (Exception e) {
-                e.printStackTrace();
+            afterTime = System.currentTimeMillis();
+            timeDiff = beforeTime - afterTime;
+            sleepTime = (UPS - timeDiff) - overSleepTime;
+            System.out.println(sleepTime);
+            if (sleepTime > 0) {
+                try {
+                    Thread.sleep(sleepTime / 1000000L);
+                } catch (Exception e) {
+                    overSleepTime = (System.currentTimeMillis() - afterTime) - sleepTime;
+                    e.printStackTrace();
+                }
+            }else{
+                overSleepTime = 0L;
             }
-
         }
     }
 
@@ -80,12 +100,12 @@ public class EnginePanel extends JPanel implements Runnable, KeyListener {
 
     }
 
-    public void render() {
+    public void render(Graphics2D graphics) {
         dbg.setColor(Color.blue);
         dbg.fillRect(0, 0, 480 * 2, 320 * 2);
         dbg.setColor(Color.red);
         dbg.fillRect(dx, dy, 100, 100);
-      
+
     }
 
     public void draw() {
