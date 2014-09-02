@@ -10,8 +10,5 @@ public interface ObjectDrawing {
     
     public void update();
     public void render(Graphics2D graphics);
-    public void draw();
-    
-    
     
 }
